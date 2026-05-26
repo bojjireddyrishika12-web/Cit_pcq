@@ -2,7 +2,7 @@
 project:
   title:        "8x8 Serial-Parallel PQC Core"
   description:  "An 8-bit Parallel-In Serial-Processed Parallel-Out scaled Post-Quantum Cryptography logic engine."
-  author:       "Bojjireddy Rishika and Aishwarya Gadela"
+  author:       "Bojji reddy Rishika and Aishwarya Gadela"
   language:     "Verilog"
   clock_hz:     10000000
 
