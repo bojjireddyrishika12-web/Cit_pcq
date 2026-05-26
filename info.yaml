@@ -1,43 +1,46 @@
-# TinyTapeout project information
+# TinyTapeout project information specifying parallel configurations
 project:
   title:        "8x8 Serial-Parallel PQC Core"
   description:  "An 8-bit Parallel-In Serial-Processed Parallel-Out scaled Post-Quantum Cryptography logic engine."
-  author:       "Bojji reddy Rishika and Aishwarya Gadela"
+  author:       "Bojjireddy Rishika"
   language:     "Verilog"
   clock_hz:     10000000
+  top_module:   "tt_um_example"      # Explicitly mapping the required top_module key
+  source_files:                      # Explicitly listing out our core structural source code file
+    - "project.v"
 
 how_it_works: "Accepts a full 8-bit parallel packet across ui_in, serializes it internally down an execution shift-pipeline, permutes it through crypto primitives, and drops the 8-bit result onto uo_out in parallel."
 how_to_test: "Apply an 8-bit parallel byte onto ui_in, cycle the system clock to load and compute, and monitor uo_out for the resulting parallel ciphertext output vector."
 
-ui_in:
-  - "parallel_data_in[0]"
-  - "parallel_data_in[1]"
-  - "parallel_data_in[2]"
-  - "parallel_data_in[3]"
-  - "parallel_data_in[4]"
-  - "parallel_data_in[5]"
-  - "parallel_data_in[6]"
-  - "parallel_data_in[7]"
-
-uo_out:
-  - "parallel_ciphertext_out[0]"
-  - "parallel_ciphertext_out[1]"
-  - "parallel_ciphertext_out[2]"
-  - "parallel_ciphertext_out[3]"
-  - "parallel_ciphertext_out[4]"
-  - "parallel_ciphertext_out[5]"
-  - "parallel_ciphertext_out[6]"
-  - "parallel_ciphertext_out[7]"
-
-uio:
-  - "ready"
-  - "done"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
+# Defining the exact structural pinout block expected by your template parser
+pinout:
+  ui_in:
+    - "parallel_data_in[0]"
+    - "parallel_data_in[1]"
+    - "parallel_data_in[2]"
+    - "parallel_data_in[3]"
+    - "parallel_data_in[4]"
+    - "parallel_data_in[5]"
+    - "parallel_data_in[6]"
+    - "parallel_data_in[7]"
+  uo_out:
+    - "parallel_ciphertext_out[0]"
+    - "parallel_ciphertext_out[1]"
+    - "parallel_ciphertext_out[2]"
+    - "parallel_ciphertext_out[3]"
+    - "parallel_ciphertext_out[4]"
+    - "parallel_ciphertext_out[5]"
+    - "parallel_ciphertext_out[6]"
+    - "parallel_ciphertext_out[7]"
+  uio:
+    - "ready"
+    - "done"
+    - "unused"
+    - "unused"
+    - "unused"
+    - "unused"
+    - "unused"
+    - "unused"
 
 # Do not change!
 yaml_version: 6
