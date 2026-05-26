@@ -1,16 +1,13 @@
 # TinyTapeout project information
 project:
-  title:        "8-bit Parallel ECC Protection Core"
-  description:  "A completely parallel 8-input to 8-output secure Hamming error-correcting system."
-  author:       "Your Name"
+  title:        "Parallel ECC Protective Core"
+  description:  "An 8-bit parallel data error correcting engine for secure V2X channels."
+  author:       "Bojjireddy Rishika"
   language:     "Verilog"
-  clock_hz:     10000000        # 10 MHz
+  clock_hz:     10000000
 
-how_it_works: >
-  Accepts a full 8-bit parallel data packet over ui_in, calculates verification parity constraints instantly, corrects single-bit errors, and drives the restored parallel data to uo_out.
-
-how_to_test: >
-  Apply an 8-bit parallel data state vector on ui_in, pulse the clock wire, and observe the error flagging alert status on uio_out[0] while verified data arrives at uo_out.
+how_it_works: "Accepts a full 8-bit parallel data packet over ui_in, calculates verification parity constraints instantly, corrects single-bit errors, and drives the restored parallel data to uo_out."
+how_to_test: "Apply an 8-bit parallel data state vector on ui_in, pulse the clock wire, and observe the error flagging alert status on uio_out[0]."
 
 # Inputs
 ui_in:
@@ -35,29 +32,9 @@ uo_out:
   - "parallel_corrected_out[7]"
 
 # Bidirectional pins
-uio_in:
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-
-uio_out:
+uio:
   - "error_detected"
   - "ready"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-  - "unused"
-
-uio_oe:
-  - "unused"
-  - "unused"
   - "unused"
   - "unused"
   - "unused"
