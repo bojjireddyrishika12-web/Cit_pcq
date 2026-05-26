@@ -6,8 +6,38 @@ project:
   language:     "Verilog"
   clock_hz:     10000000
   top_module:   "tt_um_example"
+  tiles:        "1x1"                # Explicitly defining the missing area tile configuration
   source_files:
     - "src/project.v"
+
+pinout:                              # Fully structured pinout section to satisfy the linter check
+  ui_in:
+    - "parallel_data_in[0]"
+    - "parallel_data_in[1]"
+    - "parallel_data_in[2]"
+    - "parallel_data_in[3]"
+    - "parallel_data_in[4]"
+    - "parallel_data_in[5]"
+    - "parallel_data_in[6]"
+    - "parallel_data_in[7]"
+  uo_out:
+    - "parallel_ciphertext_out[0]"
+    - "parallel_ciphertext_out[1]"
+    - "parallel_ciphertext_out[2]"
+    - "parallel_ciphertext_out[3]"
+    - "parallel_ciphertext_out[4]"
+    - "parallel_ciphertext_out[5]"
+    - "parallel_ciphertext_out[6]"
+    - "parallel_ciphertext_out[7]"
+  uio:
+    - "ready"
+    - "done"
+    - "unused"
+    - "unused"
+    - "unused"
+    - "unused"
+    - "unused"
+    - "unused"
 
 # Do not change!
 yaml_version: 6
