@@ -12,7 +12,7 @@ module tt_um_example (
     output wire [7:0] uio_oe,   // Output enables configuration
     input  wire       ena,      // Core power supply status
     input  wire       clk,      // System clock line
-    input  wire       rst_n     // Active-low clear reset line
+    input  wire       rst_n     // Active-low clear reset linne
 );
     reg [7:0] crypto_reg;
     reg ready_flag;
