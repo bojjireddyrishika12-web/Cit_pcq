@@ -1,20 +1,7 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
-
 ## How it works
 
-Explain how your project works
+Accepts a full 8-bit parallel packet across ui_in, serializes it internally down an execution shift-pipeline, permutes it through crypto primitives, and drops the 8-bit result onto uo_out in parallel.
 
 ## How to test
 
-Explain how to use your project
-
-## External hardware
-
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Apply an 8-bit parallel byte onto ui_in, cycle the system clock to load and compute, and monitor uo_out for the resulting parallel ciphertext output vector.
