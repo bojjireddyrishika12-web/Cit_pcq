@@ -97,11 +97,10 @@ module pqc_top_accelerator (
             current_state <= next_state;
             case (current_state)
                 STATE_LOAD: begin
-                    internal_shift_reg <= parallel_in; // Ingest 8 bits in parallel
+                    internal_shift_reg <= parallel_in; 
                     bit_count          <= 4'd0;
                 end
                 STATE_SERIAL: begin
-                    // Mix the data internally via bit-serial shifting execution loops
                     internal_shift_reg <= {internal_shift_reg[0], internal_shift_reg[7:1]};
                     bit_count          <= bit_count + 4'd1;
                 end
@@ -135,7 +134,7 @@ module pqc_top_accelerator (
                 next_state = STATE_DONE;
             end
             STATE_DONE: begin
-                done = 1'b1; // Parallel output data is completely stable and processed
+                done = 1'b1; 
                 next_state = STATE_LOAD;
             end
             default: next_state = STATE_LOAD;
@@ -232,4 +231,3 @@ module modular_reduction_unit (
         end
     end
 endmodule
-   
