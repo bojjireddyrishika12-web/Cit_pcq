@@ -1,15 +1,14 @@
 # TinyTapeout project information
 project:
-  title:        "Parallel ECC Protective Core"
-  description:  "An 8-bit parallel data error correcting engine for secure V2X channels."
+  title:        "8x8 Serial-Parallel PQC Core"
+  description:  "An 8-bit Parallel-In Serial-Processed Parallel-Out scaled Post-Quantum Cryptography logic engine."
   author:       "Bojjireddy Rishika"
   language:     "Verilog"
   clock_hz:     10000000
 
-how_it_works: "Accepts a full 8-bit parallel data packet over ui_in, calculates verification parity constraints instantly, corrects single-bit errors, and drives the restored parallel data to uo_out."
-how_to_test: "Apply an 8-bit parallel data state vector on ui_in, pulse the clock wire, and observe the error flagging alert status on uio_out[0]."
+how_it_works: "Accepts a full 8-bit parallel packet across ui_in, serializes it internally down an execution shift-pipeline, permutes it through crypto primitives, and drops the 8-bit result onto uo_out in parallel."
+how_to_test: "Apply an 8-bit parallel byte onto ui_in, cycle the system clock to load and compute, and monitor uo_out for the resulting parallel ciphertext output vector."
 
-# Inputs
 ui_in:
   - "parallel_data_in[0]"
   - "parallel_data_in[1]"
@@ -20,21 +19,19 @@ ui_in:
   - "parallel_data_in[6]"
   - "parallel_data_in[7]"
 
-# Outputs
 uo_out:
-  - "parallel_corrected_out[0]"
-  - "parallel_corrected_out[1]"
-  - "parallel_corrected_out[2]"
-  - "parallel_corrected_out[3]"
-  - "parallel_corrected_out[4]"
-  - "parallel_corrected_out[5]"
-  - "parallel_corrected_out[6]"
-  - "parallel_corrected_out[7]"
+  - "parallel_ciphertext_out[0]"
+  - "parallel_ciphertext_out[1]"
+  - "parallel_ciphertext_out[2]"
+  - "parallel_ciphertext_out[3]"
+  - "parallel_ciphertext_out[4]"
+  - "parallel_ciphertext_out[5]"
+  - "parallel_ciphertext_out[6]"
+  - "parallel_ciphertext_out[7]"
 
-# Bidirectional pins
 uio:
-  - "error_detected"
   - "ready"
+  - "done"
   - "unused"
   - "unused"
   - "unused"
