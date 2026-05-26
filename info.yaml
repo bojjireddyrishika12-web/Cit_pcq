@@ -6,38 +6,38 @@ project:
   language:     "Verilog"
   clock_hz:     10000000
   top_module:   "tt_um_example"
-  tiles:        "1x1"                # Explicitly defining the missing area tile configuration
+  tiles:        "1x1"
   source_files:
     - "src/project.v"
 
-pinout:                              # Fully structured pinout section to satisfy the linter check
-  ui_in:
-    - "parallel_data_in[0]"
-    - "parallel_data_in[1]"
-    - "parallel_data_in[2]"
-    - "parallel_data_in[3]"
-    - "parallel_data_in[4]"
-    - "parallel_data_in[5]"
-    - "parallel_data_in[6]"
-    - "parallel_data_in[7]"
-  uo_out:
-    - "parallel_ciphertext_out[0]"
-    - "parallel_ciphertext_out[1]"
-    - "parallel_ciphertext_out[2]"
-    - "parallel_ciphertext_out[3]"
-    - "parallel_ciphertext_out[4]"
-    - "parallel_ciphertext_out[5]"
-    - "parallel_ciphertext_out[6]"
-    - "parallel_ciphertext_out[7]"
+pinout:
+  ui:
+    - "ui[0]"
+    - "ui[1]"
+    - "ui[2]"
+    - "ui[3]"
+    - "ui[4]"
+    - "ui[5]"
+    - "ui[6]"
+    - "ui[7]"
+  uo:
+    - "uo[0]"
+    - "uo[1]"
+    - "uo[2]"
+    - "uo[3]"
+    - "uo[4]"
+    - "uo[5]"
+    - "uo[6]"
+    - "uo[7]"
   uio:
-    - "ready"
-    - "done"
-    - "unused"
-    - "unused"
-    - "unused"
-    - "unused"
-    - "unused"
-    - "unused"
+    - "uio[0]"
+    - "uio[1]"
+    - "uio[2]"
+    - "uio[3]"
+    - "uio[4]"
+    - "uio[5]"
+    - "uio[6]"
+    - "uio[7]"
 
 # Do not change!
 yaml_version: 6
