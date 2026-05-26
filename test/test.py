@@ -1,40 +1,33 @@
-# SPDX-FileCopyrightText: © 2024 Tiny Tapeout
-# SPDX-License-Identifier: Apache-2.0
-
 import cocotb
-from cocotb.clock import Clock
-from cocotb.triggers import ClockCycles
-
+from cocotb.triggers import Timer, ClockCycles
 
 @cocotb.test()
 async def test_project(dut):
-    dut._log.info("Start")
+    dut._log.info("Starting Parallel ECC Tests")
 
-    # Set the clock period to 10 us (100 KHz)
-    clock = Clock(dut.clk, 10, unit="us")
-    cocotb.start_soon(clock.start())
+    # Start the clock
+    cocotb.start_soon(cocotb.clock.Clock(dut.clk, 20, units="ns").start())
 
-    # Reset
-    dut._log.info("Reset")
-    dut.ena.value = 1
+    # Reset the chip
+    dut.rst_n.value = 0
     dut.ui_in.value = 0
     dut.uio_in.value = 0
-    dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
+    dut.ena.value = 1
+    await Timer(40, units="ns")
     dut.rst_n.value = 1
+    await Timer(20, units="ns")
 
-    dut._log.info("Test project behavior")
+    # TEST CASE 1: Healthy Parallel Input Data (0xA5)
+    dut.ui_in.value = 0xA5
+    await ClockCycles(dut.clk, 2)
+    assert dut.uo_out.value == 0xA5, f"Expected 0xA5, got {hex(dut.uo_out.value)}"
+    assert (dut.uio_out.value & 0x01) == 0, "Error flag should be LOW for clean data"
 
-    # Set the input values you want to test
-    dut.ui_in.value = 20
-    dut.uio_in.value = 30
+    # TEST CASE 2: Corrupted Channel Data (0xAD) - Bit 3 is flipped
+    dut.ui_in.value = 0xAD
+    await ClockCycles(dut.clk, 2)
+    # The matrix must catch the single bit flip and self-heal it back to 0xA5!
+    assert dut.uo_out.value == 0xA5, f"ECC Failed! Expected fixed 0xA5, got {hex(dut.uo_out.value)}"
+    assert (dut.uio_out.value & 0x01) == 1, "Error flag should be HIGH for corrupted data"
 
-    # Wait for one clock cycle to see the output values
-    await ClockCycles(dut.clk, 1)
-
-    # The following assersion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    assert dut.uo_out.value == 50
-
-    # Keep testing the module by changing the input values, waiting for
-    # one or more clock cycles, and asserting the expected output values.
+    dut._log.info("All parallel 8-bit ECC test assertions passed successfully!")
